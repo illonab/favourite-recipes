@@ -1,7 +1,8 @@
 "use client";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import server from "../../env";
 
 const Signup = () => {
   const router = useRouter();
@@ -18,7 +19,7 @@ const Signup = () => {
 
   const signUpReq = async (e) => {
     e.preventDefault();
-    const response = await axios.post("http://localhost:3001/signup", userData);
+    const response = await axios.post(`${server}/signup`, userData);
     router.push("/login");
 
     try {

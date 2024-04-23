@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import server from "../env";
 
 export default function Home() {
   const [allrecipes, setAllRecipes] = useState(null);
@@ -13,7 +14,7 @@ export default function Home() {
 
   const getAllRecipes = async (q) => {
     try {
-      const response = await axios.get(`http://localhost:3001/all/${q}`);
+      const response = await axios.get(`${server}/all/${q}`);
       setAllRecipes(response.data.message);
       localStorage.setItem("lastSearchQuery", q);
     } catch (err) {
@@ -23,7 +24,7 @@ export default function Home() {
 
   const handleAddOneRecipe = async (id) => {
     try {
-      await axios.post(`http://localhost:3001/favorites/${id}`, undefined, {
+      await axios.post(`${server}/favorites/${id}`, undefined, {
         withCredentials: true,
       });
       alert("Added");

@@ -2,6 +2,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import server from "../../env";
+
 const Login = () => {
   const router = useRouter();
   const [userData, setUserData] = useState({ email: "", password: "" });
@@ -17,11 +19,9 @@ const Login = () => {
 
   const signInReq = async (e) => {
     e.preventDefault();
-    const response = await axios.post(
-      "http://localhost:3001/signin",
-      userData,
-      { withCredentials: true }
-    );
+    const response = await axios.post(`${server}/signin`, userData, {
+      withCredentials: true,
+    });
 
     console.log(response.data);
     router.push("/favorites");

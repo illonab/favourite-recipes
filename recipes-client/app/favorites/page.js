@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Send from "../../public/send.svg";
+import server from "../../env";
 const FavoriteRecipes = () => {
   const [favRecipes, setFavRecipes] = useState([]);
   const [newComment, setComment] = useState({});
@@ -10,7 +10,7 @@ const FavoriteRecipes = () => {
 
   const getFavRecipes = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/favorites", {
+      const response = await axios.get(`${server}/favorites`, {
         withCredentials: true,
       });
       setFavRecipes(response.data.message);
@@ -21,7 +21,7 @@ const FavoriteRecipes = () => {
 
   const handleDeleteFavorite = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/favorites/${id}`);
+      await axios.delete(`${server}/favorites/${id}`);
       alert("Deleted");
       getFavRecipes();
     } catch (err) {
@@ -36,7 +36,7 @@ const FavoriteRecipes = () => {
   const handleAddComment = async (e, id) => {
     try {
       e.preventDefault();
-      await axios.post(`http://localhost:3001/favorites/${id}/comments`, {
+      await axios.post(`${server}/favorites/${id}/comments`, {
         text: newComment[id],
       });
       getFavRecipes();
@@ -53,12 +53,9 @@ const FavoriteRecipes = () => {
       return;
     }
     try {
-      await axios.put(
-        `http://localhost:3001/favorites/${recipeId}/comments/${commentId}`,
-        {
-          text: changedComment[commentId],
-        }
-      );
+      await axios.put(`${server}/favorites/${recipeId}/comments/${commentId}`, {
+        text: changedComment[commentId],
+      });
       getFavRecipes();
     } catch (err) {
       console.log(err);
@@ -68,7 +65,7 @@ const FavoriteRecipes = () => {
   const handleDeleteComment = async (recipeId, commentId) => {
     try {
       await axios.delete(
-        `http://localhost:3001/favorites/${recipeId}/comments/${commentId}`
+        `${server}/favorites/${recipeId}/comments/${commentId}`
       );
       alert("Deleted");
       getFavRecipes();
