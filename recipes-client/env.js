@@ -1,1 +1,1 @@
-const SERVER = "https://favourite-recipes.onrender.com";
+export default SERVER = "https://favourite-recipes.onrender.com";
