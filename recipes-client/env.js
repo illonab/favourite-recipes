@@ -1,1 +1,1 @@
-export default SERVER = "https://favourite-recipes.onrender.com";
+export default "https://favourite-recipes.onrender.com";
